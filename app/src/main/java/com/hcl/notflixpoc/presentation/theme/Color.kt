@@ -1,4 +1,4 @@
-package com.hcl.notflixpoc.ui.theme
+package com.hcl.notflixpoc.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

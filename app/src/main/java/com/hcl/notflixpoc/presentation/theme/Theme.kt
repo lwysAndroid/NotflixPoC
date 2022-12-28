@@ -1,4 +1,4 @@
-package com.hcl.notflixpoc.ui.theme
+package com.hcl.notflixpoc.presentation.theme
 
 import android.app.Activity
 import android.os.Build

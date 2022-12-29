@@ -10,7 +10,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.hcl.notflixpoc.presentation.theme.NotflixPoCTheme
 
 @Composable
-fun HomeScreenRout(
+fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
 
@@ -18,7 +18,7 @@ fun HomeScreenRout(
     LazyColumn() {
         if (popularMovies.isNullOrEmpty().not()) {
             items(popularMovies!!) {
-                HomeScreen(name = "Hello ${it.name} ${it.stars}!")
+                SimpleHomeScreen(name = "Hello ${it.name} ${it.stars}!")
             }
         }
     }
@@ -26,7 +26,7 @@ fun HomeScreenRout(
 }
 
 @Composable
-fun HomeScreen(name: String) {
+fun SimpleHomeScreen(name: String) {
     Text(text = "Hello $name!")
 }
 
@@ -34,6 +34,6 @@ fun HomeScreen(name: String) {
 @Composable
 fun DefaultPreview() {
     NotflixPoCTheme {
-        HomeScreen("NotflixPoC")
+        SimpleHomeScreen("NotflixPoC")
     }
 }

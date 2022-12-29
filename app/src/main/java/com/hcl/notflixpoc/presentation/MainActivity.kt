@@ -19,8 +19,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.hcl.notflixpoc.presentation.components.BottomNavBar
 import com.hcl.notflixpoc.presentation.features.NavigationItem
+import com.hcl.notflixpoc.presentation.features.favorites.FavoritesScreen
 import com.hcl.notflixpoc.presentation.features.home.HomeScreen
 import com.hcl.notflixpoc.presentation.features.notflixPoCTabRowScreens
+import com.hcl.notflixpoc.presentation.features.settings.SettingsScreen
 import com.hcl.notflixpoc.presentation.theme.NotflixPoCTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -95,6 +97,12 @@ fun NotflixPoCNavHost(
     ) {
         composable(route = NavigationItem.Home.route) {
             HomeScreen()
+        }
+        composable(route = NavigationItem.Favorites.route) {
+            FavoritesScreen()
+        }
+        composable(route = NavigationItem.Settings.route) {
+            SettingsScreen()
         }
 
     }

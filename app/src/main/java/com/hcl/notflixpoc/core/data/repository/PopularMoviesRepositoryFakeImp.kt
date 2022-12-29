@@ -1,6 +1,6 @@
-package com.hcl.notflixpoc.data.repository
+package com.hcl.notflixpoc.core.data.repository
 
-import com.hcl.notflixpoc.data.model.MovieDataModel
+import com.hcl.notflixpoc.core.data.model.MovieDataModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

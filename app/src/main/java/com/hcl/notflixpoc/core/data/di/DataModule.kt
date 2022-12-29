@@ -1,7 +1,7 @@
-package com.hcl.notflixpoc.data.di
+package com.hcl.notflixpoc.core.data.di
 
-import com.hcl.notflixpoc.data.repository.PopularMoviesRepository
-import com.hcl.notflixpoc.data.repository.PopularMoviesRepositoryFakeImp
+import com.hcl.notflixpoc.core.data.repository.PopularMoviesRepository
+import com.hcl.notflixpoc.core.data.repository.PopularMoviesRepositoryFakeImp
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

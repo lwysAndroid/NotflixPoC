@@ -1,7 +1,7 @@
-package com.hcl.notflixpoc.domain.usecases
+package com.hcl.notflixpoc.core.domain.usecases
 
-import com.hcl.notflixpoc.data.repository.PopularMoviesRepository
-import com.hcl.notflixpoc.domain.model.MovieDomainModel
+import com.hcl.notflixpoc.core.data.repository.PopularMoviesRepository
+import com.hcl.notflixpoc.core.domain.model.MovieDomainModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

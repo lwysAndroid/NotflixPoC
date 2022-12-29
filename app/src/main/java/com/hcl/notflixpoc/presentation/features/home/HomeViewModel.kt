@@ -2,7 +2,7 @@ package com.hcl.notflixpoc.presentation.features.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hcl.notflixpoc.domain.usecases.GetPopularMoviesUseCase
+import com.hcl.notflixpoc.core.domain.usecases.GetPopularMoviesUseCase
 import com.hcl.notflixpoc.presentation.features.home.model.MovieUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

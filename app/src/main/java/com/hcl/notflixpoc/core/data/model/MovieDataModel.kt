@@ -1,4 +1,4 @@
-package com.hcl.notflixpoc.data.model
+package com.hcl.notflixpoc.core.data.model
 
 data class MovieDataModel(
     val name: String,

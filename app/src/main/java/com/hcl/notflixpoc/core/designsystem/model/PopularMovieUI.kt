@@ -15,7 +15,7 @@ val fakePopularMovieUI =
     with(fakeMovie) {
         PopularMovieUI(
             id = id ?: 0,
-            title = title ?: "",
+            title = title ?: "Unknown movie",
             backdropPath = backdropPath?.loadImage() ?: "",
 //            releaseDate = releaseDate.getReleaseDate()?.capitalizeEachWord()!!,
             releaseDate = "23 November, 2022",

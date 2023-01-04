@@ -41,8 +41,8 @@ import com.hcl.notflixpoc.presentation.theme.Gray
 fun ItemPopularMovies(
     modifier: Modifier = Modifier,
     popularMovieUI: PopularMovieUI,
-    onClickItem: (PopularMovieUI) -> Unit,
-    @DrawableRes placeholder: Int = R.drawable.fake_movie
+    onClickItem: (Int) -> Unit,
+    @DrawableRes placeholder: Int = R.drawable.fake_movie_backdrop_path
 ) {
 
     val defaultDominantTextColor = MaterialTheme.colors.onSurface
@@ -74,7 +74,7 @@ fun ItemPopularMovies(
 
     Card(
         modifier = modifier
-            .clickable { onClickItem(popularMovieUI) }
+            .clickable { onClickItem(popularMovieUI.id) }
             .placeholder(
                 visible = false,
                 color = Color.Black,
@@ -83,7 +83,7 @@ fun ItemPopularMovies(
         elevation = 8.dp,
         shape = RoundedCornerShape(4.dp)
     ) {
-        Box(modifier = modifier) {
+        Box() {
 
             //region Movie Cover
             Image(
@@ -191,5 +191,10 @@ fun ItemPopularMovies(
 @DevicePreviews
 @Composable
 fun ItemPopularMoviesPreview() {
-    ItemPopularMovies(popularMovieUI = fakePopularMovieUI, onClickItem = {})
+    ItemPopularMovies(
+        popularMovieUI = fakePopularMovieUI,
+        onClickItem = {},
+        modifier = Modifier
+//            .fillMaxSize(fraction = 0.5f)
+    )
 }

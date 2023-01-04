@@ -2,8 +2,8 @@ package com.hcl.notflixpoc.presentation.features.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hcl.notflixpoc.core.domain.usecases.GetPopularMoviesUseCase
-import com.hcl.notflixpoc.presentation.features.home.model.MovieUI
+import com.hcl.notflixpoc.core.domain.usecases.GetCharactersSWUseCase
+import com.hcl.notflixpoc.presentation.features.home.model.CharacterSWUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,21 +13,21 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getPopularMoviesUseCase: GetPopularMoviesUseCase
+    private val getCharactersSWUseCase: GetCharactersSWUseCase
 ) : ViewModel() {
 
-    private val _popularMovies = MutableStateFlow<List<MovieUI>?>(emptyList())
-    val popularMovies get() = _popularMovies.asStateFlow()
+    private val _charactersSW = MutableStateFlow<List<CharacterSWUI>?>(emptyList())
+    val charactersSW get() = _charactersSW.asStateFlow()
 
     init {
-        getPopularMovies()
+        getCharactersSW()
     }
 
-    private fun getPopularMovies() {
+    private fun getCharactersSW() {
         viewModelScope.launch {
-            getPopularMoviesUseCase().collectLatest {
-                _popularMovies.value = it.map { movieDomainModel ->
-                    MovieUI(
+            getCharactersSWUseCase().collectLatest {
+                _charactersSW.value = it.map { movieDomainModel ->
+                    CharacterSWUI(
                         name = movieDomainModel.name,
                         stars = movieDomainModel.stars
                     )

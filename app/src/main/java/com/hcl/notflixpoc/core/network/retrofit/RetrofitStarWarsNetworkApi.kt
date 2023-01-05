@@ -1,7 +1,7 @@
 package com.hcl.notflixpoc.core.network.retrofit
 
-import com.hcl.notflixpoc.core.network.NotflixPoCNetworkDataSource
-import com.hcl.notflixpoc.core.network.model.PeopleSWContainer
+import com.hcl.notflixpoc.core.network.StarWarsNetworkDataSource
+import com.hcl.notflixpoc.core.network.model.CharacterSWContainer
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -10,19 +10,19 @@ import retrofit2.http.GET
 import javax.inject.Inject
 import javax.inject.Singleton
 
-private interface RetrofitNotflixPoCNetworkApi {
+private interface RetrofitStarWarsNetworkApi {
     @GET(value = "people/")
-    suspend fun getPeopleSW(): PeopleSWContainer
+    suspend fun getPeopleSW(): CharacterSWContainer
 }
 
-private const val NotflixPoCBaseUrl = "https://swapi.dev/api/"
+private const val StarWarsBaseUrl = "https://swapi.dev/api/"
 
 
 @Singleton
-class RetrofitNotflixPoCNetwork @Inject constructor() : NotflixPoCNetworkDataSource {
+class RetrofitStarWarsNetwork @Inject constructor() : StarWarsNetworkDataSource {
 
     private val networkApi = Retrofit.Builder()
-        .baseUrl(NotflixPoCBaseUrl)
+        .baseUrl(StarWarsBaseUrl)
         .client(
             OkHttpClient.Builder()
                 .addInterceptor(
@@ -36,8 +36,8 @@ class RetrofitNotflixPoCNetwork @Inject constructor() : NotflixPoCNetworkDataSou
 
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-        .create(RetrofitNotflixPoCNetworkApi::class.java)
+        .create(RetrofitStarWarsNetworkApi::class.java)
 
-    override suspend fun getPeopleSW(): PeopleSWContainer =
+    override suspend fun getCharactersSW(): CharacterSWContainer =
         networkApi.getPeopleSW()
 }

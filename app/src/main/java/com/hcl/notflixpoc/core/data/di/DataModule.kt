@@ -10,14 +10,14 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 interface DataModule {
 
-    /* @Binds
-     fun bindsPopularMoviesRepository(
-         popularMoviesRepository: PopularMoviesRepositoryFakeImp
-     ): PopularMoviesRepository*/
+     /*@Binds
+     fun bindsCharactersSWRepository(
+         charactersSWRepository: CharactersSWRepositoryFakeImp
+     ): CharactersSWRepository*/
 
     @Binds
-    fun bindsPopularMoviesRepository(
-        popularMoviesRepository: PopularMoviesRepositoryImpl
-    ): PopularMoviesRepository
+    fun bindsCharactersSWRepository(
+        charactersSWRepository: CharactersSWRepositoryImpl
+    ): CharactersSWRepository
 
 }

@@ -51,7 +51,7 @@ fun Double.getRating(): String {
 }
 
 fun String.loadImage(): String {
-    val baseUrl = "https://image.tmdb.org/t/p/original/"
+    val baseUrl = "https://image.tmdb.org/t/p/"
     val quality = "w500"//"original"
     return StringBuilder()
         .append(baseUrl)

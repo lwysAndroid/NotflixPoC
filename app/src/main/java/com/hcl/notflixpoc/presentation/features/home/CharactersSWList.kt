@@ -3,22 +3,16 @@ package com.hcl.notflixpoc.presentation.features.home
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.hcl.notflixpoc.presentation.components.SimpleScreen
+import com.hcl.notflixpoc.presentation.features.home.model.CharacterSWUI
 
 @Composable
-fun HomeScreen(
-    viewModel: HomeViewModel = hiltViewModel()
-) {
-
-    val popularMovies = viewModel.popularMovies.collectAsState().value
+fun CharactersSWList(charactersSW: List<CharacterSWUI>) {
     LazyColumn() {
-        if (popularMovies.isNullOrEmpty().not()) {
-            items(popularMovies!!) {
+        if (charactersSW.isNotEmpty()) {
+            items(charactersSW) {
                 SimpleScreen(name = "${it.name} ${it.stars}")
             }
         }
     }
-
 }

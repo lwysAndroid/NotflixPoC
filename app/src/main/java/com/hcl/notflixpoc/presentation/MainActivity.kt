@@ -20,7 +20,7 @@ import androidx.navigation.compose.rememberNavController
 import com.hcl.notflixpoc.presentation.components.BottomNavBar
 import com.hcl.notflixpoc.presentation.features.NavigationItem
 import com.hcl.notflixpoc.presentation.features.favorites.FavoritesScreen
-import com.hcl.notflixpoc.presentation.features.home.HomeScreen
+import com.hcl.notflixpoc.presentation.features.home.HomeScreenContainer
 import com.hcl.notflixpoc.presentation.features.notflixPoCTabRowScreens
 import com.hcl.notflixpoc.presentation.features.settings.SettingsScreen
 import com.hcl.notflixpoc.presentation.theme.NotflixPoCTheme
@@ -52,7 +52,7 @@ fun NotflixPoCApp() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            HomeScreen()
+            HomeScreenContainer()
         }
 
         Scaffold(
@@ -96,7 +96,7 @@ fun NotflixPoCNavHost(
         modifier = modifier
     ) {
         composable(route = NavigationItem.Home.route) {
-            HomeScreen()
+            HomeScreenContainer()
         }
         composable(route = NavigationItem.Favorites.route) {
             FavoritesScreen()

@@ -17,9 +17,17 @@ private interface RetrofitMoviesNetworkApi {
         @Query("api_key") apiKey: String = "423f0418a6d6586755fe3d7227327ef2",
         @Query("language") language: String = "en",
     ): NetworkMovieResult
+
+    @GET(value = "movie/upcoming")
+    suspend fun getUpcomingMovies(
+        @Query("page") page: Int = 1,
+        @Query("api_key") apiKey: String = "423f0418a6d6586755fe3d7227327ef2",
+        @Query("language") language: String = "en",
+    ): NetworkMovieResult
 }
 
 private const val MoviesBaseUrl = "https://api.themoviedb.org/3/"
+private const val apiKey: String = "423f0418a6d6586755fe3d7227327ef2"
 
 @Singleton
 class RetrofitMoviesNetwork @Inject constructor() : MoviesNetworkDataSource {
@@ -41,11 +49,10 @@ class RetrofitMoviesNetwork @Inject constructor() : MoviesNetworkDataSource {
         .build()
         .create(RetrofitMoviesNetworkApi::class.java)
 
-    override suspend fun getTrendingMovies(
-        page: Int,
-        apiKey: String,
-        language: String,
-    ): NetworkMovieResult =
+    override suspend fun getTrendingMovies(page: Int, language: String): NetworkMovieResult =
         networkApi.getTrendingMovies(page = page, apiKey = apiKey, language = language)
+
+    override suspend fun getUpcomingMovies(page: Int, language: String): NetworkMovieResult =
+        networkApi.getUpcomingMovies(page = page, apiKey = apiKey, language = language)
 
 }

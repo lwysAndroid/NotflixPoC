@@ -12,11 +12,14 @@ class MoviesRepositoryImpl @Inject constructor(
     private val mapper: NetworkMovieToMovieDataModelMapper,
 ) : MoviesRepository {
 
-    override fun getTrendingMovies(): Flow<List<MovieDataModel>> {
-        return flow {
-            val retrieveMovies = network.getTrendingMovies()
-            retrieveMovies.movies.map { mapper(it) }.also { emit(it) }
-        }
+    override fun getTrendingMovies(): Flow<List<MovieDataModel>> = flow {
+        val retrieveMovies = network.getTrendingMovies()
+        retrieveMovies.movies.map { mapper(it) }.also { emit(it) }
+    }
+
+    override fun getUpcomingMovies(): Flow<List<MovieDataModel>> = flow {
+        val retrieveMovies = network.getUpcomingMovies()
+        retrieveMovies.movies.map { mapper(it) }.also { emit(it) }
     }
 
 }

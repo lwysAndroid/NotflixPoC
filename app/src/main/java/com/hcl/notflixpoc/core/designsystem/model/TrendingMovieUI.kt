@@ -1,6 +1,7 @@
 package com.hcl.notflixpoc.core.designsystem.model
 
 import com.hcl.notflixpoc.core.designsystem.util.loadImage
+import com.hcl.notflixpoc.core.domain.model.fakeMovieDomainModel
 
 data class TrendingMovieUI(
     val id: Int,
@@ -9,10 +10,10 @@ data class TrendingMovieUI(
 )
 
 val fakeTrendingMovieUI =
-    with(fakeMovie) {
+    with(fakeMovieDomainModel) {
         TrendingMovieUI(
-            id = id ?: 0,
-            title = title ?: "Unknown movie",
-            posterPath = posterPath?.loadImage() ?: ""
+            id = id,
+            title = title,
+            posterPath = posterPath?.loadImage()
         )
     }

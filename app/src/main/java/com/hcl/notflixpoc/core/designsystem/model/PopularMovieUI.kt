@@ -2,6 +2,7 @@ package com.hcl.notflixpoc.core.designsystem.model
 
 import com.hcl.notflixpoc.core.designsystem.util.getRating
 import com.hcl.notflixpoc.core.designsystem.util.loadImage
+import com.hcl.notflixpoc.core.domain.model.fakeMovieDomainModel
 
 data class PopularMovieUI(
     val id: Int,
@@ -12,13 +13,13 @@ data class PopularMovieUI(
 )
 
 val fakePopularMovieUI =
-    with(fakeMovie) {
+    with(fakeMovieDomainModel) {
         PopularMovieUI(
-            id = id ?: 0,
-            title = title ?: "Unknown movie",
+            id = id,
+            title = title,
             backdropPath = backdropPath?.loadImage() ?: "",
 //            releaseDate = releaseDate.getReleaseDate()?.capitalizeEachWord()!!,
             releaseDate = "23 November, 2022",
-            voteAverage = (voteAverage ?: 0.0).getRating().toFloat(),
+            voteAverage = voteAverage.getRating().toFloat(),
         )
     }

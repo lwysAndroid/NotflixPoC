@@ -1,4 +1,4 @@
-package com.hcl.notflixpoc.core.domain.usecases
+package com.hcl.notflixpoc.core.domain.usecase
 
 import com.hcl.notflixpoc.core.data.repository.CharactersSWRepository
 import com.hcl.notflixpoc.core.domain.model.CharacterSWDomainModel

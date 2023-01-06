@@ -2,6 +2,7 @@ package com.hcl.notflixpoc.core.designsystem.model
 
 import com.hcl.notflixpoc.core.designsystem.util.getRating
 import com.hcl.notflixpoc.core.designsystem.util.loadImage
+import com.hcl.notflixpoc.core.domain.model.fakeMovieDomainModel
 
 data class PopularMovieUI(
     val id: Int,
@@ -12,7 +13,7 @@ data class PopularMovieUI(
 )
 
 val fakePopularMovieUI =
-    with(fakeMovie) {
+    with(fakeMovieDomainModel) {
         PopularMovieUI(
             id = id ?: 0,
             title = title ?: "Unknown movie",

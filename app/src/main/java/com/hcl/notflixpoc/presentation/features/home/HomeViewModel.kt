@@ -7,7 +7,8 @@ import com.hcl.notflixpoc.core.designsystem.model.TrendingMovieUI
 import com.hcl.notflixpoc.core.designsystem.model.fakePopularMovieUI
 import com.hcl.notflixpoc.core.designsystem.model.fakeTrendingMovieUI
 import com.hcl.notflixpoc.core.designsystem.util.loadImage
-import com.hcl.notflixpoc.core.domain.usecases.GetCharactersSWUseCase
+import com.hcl.notflixpoc.core.domain.usecase.GetCharactersSWUseCase
+import com.hcl.notflixpoc.core.domain.usecase.GetTrendingMoviesUseCase
 import com.hcl.notflixpoc.presentation.features.home.model.CharacterSWUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getCharactersSWUseCase: GetCharactersSWUseCase
+    private val getCharactersSWUseCase: GetCharactersSWUseCase,
+    private val getTrendingMoviesUseCase: GetTrendingMoviesUseCase,
 ) : ViewModel() {
 
     private val _trendingMovies = MutableStateFlow<List<TrendingMovieUI>>(emptyList())
@@ -33,10 +35,20 @@ class HomeViewModel @Inject constructor(
 
     init {
         getMoviesData()
+//        getCharactersSW()
     }
 
     private fun getMoviesData() {
-        _trendingMovies.value = (1..10).map { fakeTrendingMovieUI }
+        viewModelScope.launch {
+            getTrendingMoviesUseCase().collectLatest {
+                _trendingMovies.value = it.map { movieDomainModel ->
+                    with(movieDomainModel) {
+                        TrendingMovieUI(id = id, title = title, posterPath = posterPath.loadImage())
+                    }
+                }
+            }
+        }
+//        _trendingMovies.value = (1..10).map { fakeTrendingMovieUI }
         _popularMovies.value = (1..10).map { fakePopularMovieUI }
         _upcomingMovies.value =
             (1..10).map { fakeTrendingMovieUI.copy(posterPath = "/fJRt3mmZEvf8gQzoNLzjPtWpc9o.jpg".loadImage()) }

@@ -14,4 +14,9 @@ interface MoviesNetworkDataSource {
         language: String = "en",
     ): NetworkMovieResult
 
+    suspend fun getPopularMovies(
+        page: Int = 1,
+        language: String = "en",
+    ): NetworkMovieResult
+
 }

@@ -2,10 +2,11 @@ package com.hcl.notflixpoc.presentation.features.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hcl.notflixpoc.core.designsystem.mapper.MovieDomainModelToPopularMovieUI
+import com.hcl.notflixpoc.core.designsystem.mapper.MovieDomainModelToTrendingMovieUI
 import com.hcl.notflixpoc.core.designsystem.model.PopularMovieUI
 import com.hcl.notflixpoc.core.designsystem.model.TrendingMovieUI
-import com.hcl.notflixpoc.core.designsystem.model.fakePopularMovieUI
-import com.hcl.notflixpoc.core.designsystem.util.loadImage
+import com.hcl.notflixpoc.core.domain.usecase.GetPopularMoviesUseCase
 import com.hcl.notflixpoc.core.domain.usecase.GetTrendingMoviesUseCase
 import com.hcl.notflixpoc.core.domain.usecase.GetUpcomingMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +20,9 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val getTrendingMoviesUseCase: GetTrendingMoviesUseCase,
     private val getUpcomingMoviesUseCase: GetUpcomingMoviesUseCase,
+    private val getPopularMoviesUseCase: GetPopularMoviesUseCase,
+    private val trendingMovieUIMapper: MovieDomainModelToTrendingMovieUI,
+    private val popularMovieUIMapper: MovieDomainModelToPopularMovieUI,
 ) : ViewModel() {
 
     private val _trendingMovies = MutableStateFlow<List<TrendingMovieUI>>(emptyList())
@@ -33,32 +37,25 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun getMoviesData() {
-        //        _trendingMovies.value = (1..10).map { fakeTrendingMovieUI }
-        _popularMovies.value = (1..10).map { fakePopularMovieUI }
-        /*_upcomingMovies.value =
-            (1..10).map {
-                fakeTrendingMovieUI
-                    .copy(posterPath = "/fJRt3mmZEvf8gQzoNLzjPtWpc9o.jpg".loadImage())
-            }*/
-
         viewModelScope.launch {
             getTrendingMoviesUseCase().collectLatest {
                 _trendingMovies.value = it.map { movieDomainModel ->
-                    with(movieDomainModel) {
-                        TrendingMovieUI(id = id, title = title, posterPath = posterPath.loadImage())
-                    }
+                    trendingMovieUIMapper(movieDomainModel)
                 }
             }
 
             getUpcomingMoviesUseCase().collectLatest {
                 _upcomingMovies.value = it.map { movieDomainModel ->
-                    with(movieDomainModel) {
-                        TrendingMovieUI(id = id, title = title, posterPath = posterPath.loadImage())
-                    }
+                    trendingMovieUIMapper(movieDomainModel)
+                }
+            }
+
+            getPopularMoviesUseCase().collectLatest {
+                _popularMovies.value = it.map { movieDomainModel ->
+                    popularMovieUIMapper(movieDomainModel)
                 }
             }
         }
-
     }
 
 }

@@ -22,4 +22,9 @@ class MoviesRepositoryImpl @Inject constructor(
         retrieveMovies.movies.map { mapper(it) }.also { emit(it) }
     }
 
+    override fun getPopularMovies(): Flow<List<MovieDataModel>> = flow {
+        val retrieveMovies = network.getPopularMovies()
+        retrieveMovies.movies.map { mapper(it) }.also { emit(it) }
+    }
+
 }

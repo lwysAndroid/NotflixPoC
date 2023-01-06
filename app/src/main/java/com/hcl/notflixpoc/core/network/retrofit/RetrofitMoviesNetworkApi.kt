@@ -24,6 +24,13 @@ private interface RetrofitMoviesNetworkApi {
         @Query("api_key") apiKey: String = "423f0418a6d6586755fe3d7227327ef2",
         @Query("language") language: String = "en",
     ): NetworkMovieResult
+
+    @GET(value = "movie/popular")
+    suspend fun getPopularMovies(
+        @Query("page") page: Int = 1,
+        @Query("api_key") apiKey: String = "423f0418a6d6586755fe3d7227327ef2",
+        @Query("language") language: String = "en",
+    ): NetworkMovieResult
 }
 
 private const val MoviesBaseUrl = "https://api.themoviedb.org/3/"
@@ -54,5 +61,8 @@ class RetrofitMoviesNetwork @Inject constructor() : MoviesNetworkDataSource {
 
     override suspend fun getUpcomingMovies(page: Int, language: String): NetworkMovieResult =
         networkApi.getUpcomingMovies(page = page, apiKey = apiKey, language = language)
+
+    override suspend fun getPopularMovies(page: Int, language: String): NetworkMovieResult =
+        networkApi.getPopularMovies(page = page, apiKey = apiKey, language = language)
 
 }

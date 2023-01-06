@@ -15,11 +15,11 @@ data class PopularMovieUI(
 val fakePopularMovieUI =
     with(fakeMovieDomainModel) {
         PopularMovieUI(
-            id = id ?: 0,
-            title = title ?: "Unknown movie",
+            id = id,
+            title = title,
             backdropPath = backdropPath?.loadImage() ?: "",
 //            releaseDate = releaseDate.getReleaseDate()?.capitalizeEachWord()!!,
             releaseDate = "23 November, 2022",
-            voteAverage = (voteAverage ?: 0.0).getRating().toFloat(),
+            voteAverage = voteAverage.getRating().toFloat(),
         )
     }

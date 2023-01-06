@@ -20,4 +20,9 @@ interface DataModule {
         charactersSWRepository: CharactersSWRepositoryImpl
     ): CharactersSWRepository
 
+    @Binds
+    fun bindsMoviesRepository(
+        moviesRepository: MoviesRepositoryImpl
+    ): MoviesRepository
+
 }

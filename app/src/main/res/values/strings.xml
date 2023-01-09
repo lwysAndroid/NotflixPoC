@@ -7,4 +7,23 @@
     <string name="trending_movies">Trending Movies</string>
     <string name="popular_movies">Popular Movies</string>
     <string name="upcoming_movies">Upcoming Movies</string>
+
+    <string name="popularity">Popularity</string>
+    <string name="overview">Overview</string>
+    <string name="cast">Cast</string>
+    <string name="placeholder_actor_name">Johnny Cage</string>
+    <string name="trailer">Trailer</string>
+    <string name="similar_movies">Similar Movies</string>
+
+
+    <string name="def">Default</string>
+    <string name="language_eg" translatable="false">No Russian</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="movie_poster">Movie poster</string>
+    <string name="unknown_movie">Unknown movie</string>
+    <string name="rating">Rating</string>
+    <string name="unknown_actor">Unknown Actor</string>
+    <string name="unknown_character">Unknown character</string>
+    <string name="back">Back</string>
 </resources>

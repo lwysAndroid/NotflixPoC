@@ -32,7 +32,8 @@ import com.hcl.notflixpoc.presentation.theme.Gray
 
 @Composable
 fun HomeScreenContainer(
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
+    onClickMovie: (Int) -> Unit = {}
 ) {
 
     val trendingMovies = viewModel.trendingMovies.collectAsState().value
@@ -42,13 +43,13 @@ fun HomeScreenContainer(
     HomeScreen(
         trendingMovies = trendingMovies,
         trendingTitle = stringResource(id = R.string.trending_movies),
-        onClickItemTrending = {},
+        onClickItemTrending = onClickMovie,
         popularMovies = popularMovies,
         popularTitle = stringResource(id = R.string.popular_movies),
-        onClickItemPopular = {},
+        onClickItemPopular = onClickMovie,
         upcomingMovies = upcomingMovies,
         upcomingTitle = stringResource(id = R.string.upcoming_movies),
-        onClickItemUpcoming = {},
+        onClickItemUpcoming = onClickMovie,
     )
 }
 
@@ -125,7 +126,7 @@ fun TrendingMovies(
         items(items = movies) { item ->
             ItemTrendingMovies(
                 movie = item,
-                onClickItem = {}
+                onClickItem = onClickItem
             )
         }
 
@@ -158,7 +159,7 @@ fun PopularMovies(
                     .width(300.dp)
                     .height(245.dp),
                 popularMovieUI = item,
-                onClickItem = { }
+                onClickItem = onClickItem
             )
         }
     }

@@ -19,6 +19,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.hcl.notflixpoc.presentation.components.BottomNavBar
 import com.hcl.notflixpoc.presentation.features.NavigationItem
+import com.hcl.notflixpoc.presentation.features.detail.DetailScreenContainer
 import com.hcl.notflixpoc.presentation.features.favorites.FavoritesScreen
 import com.hcl.notflixpoc.presentation.features.home.HomeScreenContainer
 import com.hcl.notflixpoc.presentation.features.notflixPoCTabRowScreens
@@ -83,6 +84,10 @@ fun NavHostController.navigateSingleTopTo(route: String) =
         restoreState = true
     }
 
+private fun NavHostController.navigateToMovieDetail(movieId: Int) {
+    this.navigateSingleTopTo("${NavigationItem.Details.route}/$movieId")
+}
+
 
 @Composable
 fun NotflixPoCNavHost(
@@ -96,13 +101,25 @@ fun NotflixPoCNavHost(
         modifier = modifier
     ) {
         composable(route = NavigationItem.Home.route) {
-            HomeScreenContainer()
+            HomeScreenContainer(onClickMovie = { movieId ->
+                navController.navigateToMovieDetail(movieId = movieId)
+
+            })
         }
         composable(route = NavigationItem.Favorites.route) {
             FavoritesScreen()
         }
         composable(route = NavigationItem.Settings.route) {
             SettingsScreen()
+        }
+
+        composable(
+            route = NavigationItem.Details.routeWithArgs,
+            arguments = NavigationItem.Details.arguments
+        ) { navBackStackEntry ->
+            // Retrieve the passed argument
+            val movieId = navBackStackEntry.arguments?.getInt(NavigationItem.Details.movieIdArg)
+            DetailScreenContainer(movieId = movieId)
         }
 
     }

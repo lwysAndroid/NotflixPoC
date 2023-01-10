@@ -7,7 +7,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -28,10 +29,13 @@ import com.hcl.notflixpoc.presentation.theme.Gray
 @Composable
 fun DetailScreenContainer(
     viewModel: DetailViewModel = hiltViewModel(),
-    movieId: Int? = 1
+    movieId: Int? = -1
 ) {
-    val movieIdRemember = remember(movieId) { 1 }
-    DetailScreen(detailUi = mockDetailUi)
+    LaunchedEffect(key1 = viewModel) {
+        viewModel.getMovieDetails(movieId ?: -1)
+    }
+    val movieDetails = viewModel.movieDetails.collectAsState().value
+    movieDetails?.let { DetailScreen(detailUi = it) }
 }
 
 @Composable

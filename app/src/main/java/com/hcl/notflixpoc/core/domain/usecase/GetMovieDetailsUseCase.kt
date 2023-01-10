@@ -17,6 +17,7 @@ class GetMovieDetailsUseCase @Inject constructor(
                     popularity = popularity,
                     voteAverage = voteAverage,
                     overview = overview,
+                    backdropPath = backdropPath
                 )
             }
         }

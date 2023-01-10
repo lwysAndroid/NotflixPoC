@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hcl.notflixpoc.core.designsystem.util.getPopularity
 import com.hcl.notflixpoc.core.designsystem.util.getRating
+import com.hcl.notflixpoc.core.designsystem.util.loadImage
 import com.hcl.notflixpoc.core.domain.usecase.GetMovieDetailsUseCase
 import com.hcl.notflixpoc.presentation.features.detail.model.DetailUi
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,7 +31,8 @@ class DetailViewModel @Inject constructor(
                         title = title,
                         popularity = voteAverage.getPopularity(),
                         voteAverage = voteAverage.getRating(),
-                        overview = overview
+                        overview = overview,
+                        backdropPath = backdropPath?.loadImage()
                     )
                 }
             }

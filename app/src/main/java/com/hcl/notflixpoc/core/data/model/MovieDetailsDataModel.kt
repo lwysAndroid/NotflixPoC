@@ -5,4 +5,5 @@ data class MovieDetailsDataModel(
     val popularity: Double,
     val voteAverage: Double,
     val overview: String,
+    val backdropPath: String,
 )

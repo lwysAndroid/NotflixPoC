@@ -17,7 +17,7 @@ val fakePopularMovieUI =
         PopularMovieUI(
             id = id,
             title = title,
-            backdropPath = backdropPath?.loadImage() ?: "",
+            backdropPath = backdropPath?.loadImage(),
 //            releaseDate = releaseDate.getReleaseDate()?.capitalizeEachWord()!!,
             releaseDate = "23 November, 2022",
             voteAverage = voteAverage.getRating().toFloat(),

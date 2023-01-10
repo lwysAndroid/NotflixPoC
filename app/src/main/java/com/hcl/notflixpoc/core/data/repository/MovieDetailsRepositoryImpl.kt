@@ -13,11 +13,13 @@ class MovieDetailsRepositoryImpl @Inject constructor(
     override fun getMovieDetails(movieId: Int): Flow<MovieDetailsDataModel> = flow {
         val retrieveMovieDetails = network.getMovieDetails(movieId = movieId)
         with(retrieveMovieDetails) {
+            //TODO validate null or empty fields
             MovieDetailsDataModel(
                 title = title ?: "",
                 popularity = popularity ?: 0.0,
                 voteAverage = voteAverage ?: 0.0,
-                overview = overview ?: ""
+                overview = overview ?: "",
+                backdropPath = backdropPath ?: "",
             ).also { emit(it) }
         }
     }

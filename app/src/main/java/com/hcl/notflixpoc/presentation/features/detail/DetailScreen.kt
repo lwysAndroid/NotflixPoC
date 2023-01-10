@@ -52,9 +52,14 @@ fun DetailScreen(detailUi: DetailUi) {
             MovieRatingSection(popularity = detailUi.popularity, voteAverage = detailUi.voteAverage)
 
             //region Movie Overview
+            val overViewText = StringBuilder()
+                .append(stringResource(R.string.overview))
+                .append(" ")
+                .append(detailUi.title).toString()
+
             Text(
                 modifier = Modifier.padding(horizontal = 16.dp),
-                text = stringResource(R.string.overview),
+                text = overViewText,
                 style = MaterialTheme.typography.h6,
                 fontSize = 20.sp,
                 color = MaterialTheme.colors.onSurface,

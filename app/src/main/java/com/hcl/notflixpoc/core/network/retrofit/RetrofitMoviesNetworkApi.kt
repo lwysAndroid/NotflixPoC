@@ -1,11 +1,13 @@
 package com.hcl.notflixpoc.core.network.retrofit
 
+import com.hcl.notflixpoc.core.network.model.NetworkMovieDetails
 import com.hcl.notflixpoc.core.network.model.NetworkMovieResult
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -31,6 +33,14 @@ private interface RetrofitMoviesNetworkApi {
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en",
     ): NetworkMovieResult
+
+    @GET(value = "movie/{id}")
+    suspend fun getMovieDetails(
+        @Path("id") id: Int,
+        @Query("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String = API_KEY,
+        @Query("language") language: String = "en",
+    ): NetworkMovieDetails
 }
 
 private const val MOVIES_BASE_URL = "https://api.themoviedb.org/3/"
@@ -64,5 +74,13 @@ class RetrofitMoviesNetwork @Inject constructor() : MoviesNetworkDataSource {
 
     override suspend fun getPopularMovies(page: Int, language: String): NetworkMovieResult =
         networkApi.getPopularMovies(page = page, apiKey = API_KEY, language = language)
+
+    override suspend fun getMovieDetails(movieId: Int, language: String): NetworkMovieDetails =
+        networkApi.getMovieDetails(
+            id = movieId,
+            movieId = movieId,
+            apiKey = API_KEY,
+            language = language
+        )
 
 }

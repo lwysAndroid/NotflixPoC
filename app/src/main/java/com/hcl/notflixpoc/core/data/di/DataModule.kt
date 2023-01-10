@@ -25,4 +25,9 @@ interface DataModule {
         moviesRepository: MoviesRepositoryImpl
     ): MoviesRepository
 
+    @Binds
+    fun bindsMovieDetailsRepository(
+        movieDetailsRepository: MovieDetailsRepositoryImpl
+    ): MovieDetailsRepository
+
 }

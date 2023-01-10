@@ -1,5 +1,6 @@
 package com.hcl.notflixpoc.core.network.retrofit
 
+import com.hcl.notflixpoc.core.network.model.NetworkMovieDetails
 import com.hcl.notflixpoc.core.network.model.NetworkMovieResult
 
 interface MoviesNetworkDataSource {
@@ -18,5 +19,10 @@ interface MoviesNetworkDataSource {
         page: Int = 1,
         language: String = "en",
     ): NetworkMovieResult
+
+    suspend fun getMovieDetails(
+        movieId: Int,
+        language: String = "en",
+    ): NetworkMovieDetails
 
 }

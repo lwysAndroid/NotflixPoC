@@ -29,6 +29,7 @@ import com.google.accompanist.placeholder.material.placeholder
 import com.hcl.notflixpoc.BuildConfig
 import com.hcl.notflixpoc.core.ui.PhonePreview
 import com.hcl.notflixpoc.R
+import com.hcl.notflixpoc.core.designsystem.component.LoadingScreen
 import com.hcl.notflixpoc.core.designsystem.model.ScreenState
 import com.hcl.notflixpoc.presentation.features.detail.model.DetailUi
 import com.hcl.notflixpoc.presentation.features.detail.model.mockDetailUi
@@ -46,7 +47,7 @@ fun DetailScreenContainer(
     val movieDetailsState = viewModel.detailScreenState.collectAsState().value
     when (movieDetailsState) {
         is ScreenState.Loading -> {
-
+            LoadingScreen()
         }
         is ScreenState.Success -> {
             DetailScreen(detailUi = movieDetailsState.data)

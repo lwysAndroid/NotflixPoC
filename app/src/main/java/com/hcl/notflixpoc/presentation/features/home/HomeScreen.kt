@@ -23,6 +23,7 @@ import com.google.accompanist.placeholder.material.placeholder
 import com.hcl.notflixpoc.R
 import com.hcl.notflixpoc.core.designsystem.component.ItemPopularMovies
 import com.hcl.notflixpoc.core.designsystem.component.ItemTrendingMovies
+import com.hcl.notflixpoc.core.designsystem.component.LoadingScreen
 import com.hcl.notflixpoc.core.designsystem.component.SimpleScreenError
 import com.hcl.notflixpoc.core.designsystem.model.*
 import com.hcl.notflixpoc.core.ui.PhonePreview
@@ -37,7 +38,7 @@ fun HomeScreenContainer(
 
     when (homeScreenState) {
         is ScreenState.Loading -> {
-
+            LoadingScreen()
         }
         is ScreenState.Success -> {
             with(homeScreenState.data) {
@@ -179,7 +180,6 @@ fun PopularMovies(
 }
 
 @PhonePreview
-//@DevicePreviews
 @Composable
 fun HomeScreenPreview() {
     HomeScreen(

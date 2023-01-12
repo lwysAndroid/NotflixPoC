@@ -2,6 +2,8 @@ package com.hcl.notflixpoc.presentation.features
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import com.hcl.notflixpoc.R
 
 sealed class NavigationItem(
@@ -15,7 +17,14 @@ sealed class NavigationItem(
         NavigationItem("favorites", R.string.title_favorites, R.drawable.ic_favourite)
 
     object Settings : NavigationItem("settings", R.string.title_settings, R.drawable.ic_settings)
-    object Details : NavigationItem("details/{movieId}/{cacheId}", R.string.title_details, null)
+
+    object Details : NavigationItem("details", R.string.title_details, null) {
+        const val movieIdArg = "movieId"
+        val routeWithArgs = "$route/{$movieIdArg}"
+        val arguments = listOf(
+            navArgument(movieIdArg) { type = NavType.IntType }
+        )
+    }
 }
 
 val notflixPoCTabRowScreens =

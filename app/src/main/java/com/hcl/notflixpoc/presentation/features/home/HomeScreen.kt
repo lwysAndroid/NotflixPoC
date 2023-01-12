@@ -23,33 +23,47 @@ import com.google.accompanist.placeholder.material.placeholder
 import com.hcl.notflixpoc.R
 import com.hcl.notflixpoc.core.designsystem.component.ItemPopularMovies
 import com.hcl.notflixpoc.core.designsystem.component.ItemTrendingMovies
-import com.hcl.notflixpoc.core.designsystem.model.PopularMovieUI
-import com.hcl.notflixpoc.core.designsystem.model.TrendingMovieUI
-import com.hcl.notflixpoc.core.designsystem.model.fakePopularMovieUI
-import com.hcl.notflixpoc.core.designsystem.model.fakeTrendingMovieUI
+import com.hcl.notflixpoc.core.designsystem.component.LoadingScreen
+import com.hcl.notflixpoc.core.designsystem.component.SimpleScreenError
+import com.hcl.notflixpoc.core.designsystem.model.*
 import com.hcl.notflixpoc.core.ui.PhonePreview
 import com.hcl.notflixpoc.presentation.theme.Gray
 
 @Composable
 fun HomeScreenContainer(
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
+    onClickMovie: (Int) -> Unit = {}
 ) {
+    val homeScreenState = viewModel.homeScreenState.collectAsState().value
 
-    val trendingMovies = viewModel.trendingMovies.collectAsState().value
-    val popularMovies = viewModel.popularMovies.collectAsState().value
-    val upcomingMovies = viewModel.upcomingMovies.collectAsState().value
+    when (homeScreenState) {
+        is ScreenState.Loading -> {
+            LoadingScreen()
+        }
+        is ScreenState.Success -> {
+            with(homeScreenState.data) {
+                HomeScreen(
+                    trendingMovies = trendingMovies,
+                    trendingTitle = stringResource(id = R.string.trending_movies),
+                    onClickItemTrending = onClickMovie,
+                    popularMovies = popularMovies,
+                    popularTitle = stringResource(id = R.string.popular_movies),
+                    onClickItemPopular = onClickMovie,
+                    upcomingMovies = upcomingMovies,
+                    upcomingTitle = stringResource(id = R.string.upcoming_movies),
+                    onClickItemUpcoming = onClickMovie,
+                )
+            }
+        }
+        is ScreenState.Error -> {
+            SimpleScreenError(
+                errorMessage = stringResource(id = R.string.home_error_message),
+                buttonMessage = stringResource(id = R.string.home_error_message_button),
+                onClickRetry = { viewModel.getMoviesData() }
+            )
+        }
 
-    HomeScreen(
-        trendingMovies = trendingMovies,
-        trendingTitle = stringResource(id = R.string.trending_movies),
-        onClickItemTrending = {},
-        popularMovies = popularMovies,
-        popularTitle = stringResource(id = R.string.popular_movies),
-        onClickItemPopular = {},
-        upcomingMovies = upcomingMovies,
-        upcomingTitle = stringResource(id = R.string.upcoming_movies),
-        onClickItemUpcoming = {},
-    )
+    }
 }
 
 @Composable
@@ -125,7 +139,7 @@ fun TrendingMovies(
         items(items = movies) { item ->
             ItemTrendingMovies(
                 movie = item,
-                onClickItem = {}
+                onClickItem = onClickItem
             )
         }
 
@@ -158,7 +172,7 @@ fun PopularMovies(
                     .width(300.dp)
                     .height(245.dp),
                 popularMovieUI = item,
-                onClickItem = { }
+                onClickItem = onClickItem
             )
         }
     }
@@ -166,7 +180,6 @@ fun PopularMovies(
 }
 
 @PhonePreview
-//@DevicePreviews
 @Composable
 fun HomeScreenPreview() {
     HomeScreen(

@@ -28,6 +28,7 @@ import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.fade
 import com.google.accompanist.placeholder.material.placeholder
 import com.google.accompanist.placeholder.shimmer
+import com.hcl.notflixpoc.BuildConfig
 import com.hcl.notflixpoc.R
 import com.hcl.notflixpoc.core.designsystem.model.TrendingMovieUI
 import com.hcl.notflixpoc.core.designsystem.model.fakeTrendingMovieUI
@@ -79,7 +80,9 @@ fun ItemTrendingMovies(
                     data = movie.posterPath,
                     builder = {
                         crossfade(true)
-                        placeholder(placeholder)
+                        if(BuildConfig.DEBUG){
+                            placeholder(placeholder)
+                        }
                     }
                 ),
                 alignment = Alignment.Center,

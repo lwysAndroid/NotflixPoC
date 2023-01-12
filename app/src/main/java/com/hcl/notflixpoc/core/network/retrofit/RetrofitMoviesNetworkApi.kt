@@ -1,11 +1,13 @@
 package com.hcl.notflixpoc.core.network.retrofit
 
+import com.hcl.notflixpoc.core.network.model.NetworkMovieDetails
 import com.hcl.notflixpoc.core.network.model.NetworkMovieResult
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -14,33 +16,41 @@ private interface RetrofitMoviesNetworkApi {
     @GET(value = "trending/movie/week")
     suspend fun getTrendingMovies(
         @Query("page") page: Int = 1,
-        @Query("api_key") apiKey: String = "423f0418a6d6586755fe3d7227327ef2",
+        @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en",
     ): NetworkMovieResult
 
     @GET(value = "movie/upcoming")
     suspend fun getUpcomingMovies(
         @Query("page") page: Int = 1,
-        @Query("api_key") apiKey: String = "423f0418a6d6586755fe3d7227327ef2",
+        @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en",
     ): NetworkMovieResult
 
     @GET(value = "movie/popular")
     suspend fun getPopularMovies(
         @Query("page") page: Int = 1,
-        @Query("api_key") apiKey: String = "423f0418a6d6586755fe3d7227327ef2",
+        @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en",
     ): NetworkMovieResult
+
+    @GET(value = "movie/{id}")
+    suspend fun getMovieDetails(
+        @Path("id") id: Int,
+        @Query("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String = API_KEY,
+        @Query("language") language: String = "en",
+    ): NetworkMovieDetails
 }
 
-private const val MoviesBaseUrl = "https://api.themoviedb.org/3/"
-private const val apiKey: String = "423f0418a6d6586755fe3d7227327ef2"
+private const val MOVIES_BASE_URL = "https://api.themoviedb.org/3/"
+private const val API_KEY: String = "423f0418a6d6586755fe3d7227327ef2"
 
 @Singleton
 class RetrofitMoviesNetwork @Inject constructor() : MoviesNetworkDataSource {
 
     private val networkApi = Retrofit.Builder()
-        .baseUrl(MoviesBaseUrl)
+        .baseUrl(MOVIES_BASE_URL)
         .client(
             OkHttpClient.Builder()
                 .addInterceptor(
@@ -57,12 +67,20 @@ class RetrofitMoviesNetwork @Inject constructor() : MoviesNetworkDataSource {
         .create(RetrofitMoviesNetworkApi::class.java)
 
     override suspend fun getTrendingMovies(page: Int, language: String): NetworkMovieResult =
-        networkApi.getTrendingMovies(page = page, apiKey = apiKey, language = language)
+        networkApi.getTrendingMovies(page = page, apiKey = API_KEY, language = language)
 
     override suspend fun getUpcomingMovies(page: Int, language: String): NetworkMovieResult =
-        networkApi.getUpcomingMovies(page = page, apiKey = apiKey, language = language)
+        networkApi.getUpcomingMovies(page = page, apiKey = API_KEY, language = language)
 
     override suspend fun getPopularMovies(page: Int, language: String): NetworkMovieResult =
-        networkApi.getPopularMovies(page = page, apiKey = apiKey, language = language)
+        networkApi.getPopularMovies(page = page, apiKey = API_KEY, language = language)
+
+    override suspend fun getMovieDetails(movieId: Int, language: String): NetworkMovieDetails =
+        networkApi.getMovieDetails(
+            id = movieId,
+            movieId = movieId,
+            apiKey = API_KEY,
+            language = language
+        )
 
 }

@@ -32,7 +32,7 @@ import com.hcl.notflixpoc.R
 import com.hcl.notflixpoc.core.designsystem.model.ScreenState
 import com.hcl.notflixpoc.presentation.features.detail.model.DetailUi
 import com.hcl.notflixpoc.presentation.features.detail.model.mockDetailUi
-import com.hcl.notflixpoc.presentation.features.home.SimpleScreenError
+import com.hcl.notflixpoc.core.designsystem.component.SimpleScreenError
 import com.hcl.notflixpoc.presentation.theme.Gray
 
 @Composable

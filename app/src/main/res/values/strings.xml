@@ -26,4 +26,6 @@
     <string name="unknown_actor">Unknown Actor</string>
     <string name="unknown_character">Unknown character</string>
     <string name="back">Back</string>
+    <string name="home_error_message">An error occurred</string>
+    <string name="home_error_message_button">Retry</string>
 </resources>

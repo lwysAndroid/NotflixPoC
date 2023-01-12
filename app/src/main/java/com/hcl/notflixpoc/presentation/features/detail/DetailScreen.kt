@@ -29,8 +29,10 @@ import com.google.accompanist.placeholder.material.placeholder
 import com.hcl.notflixpoc.BuildConfig
 import com.hcl.notflixpoc.core.ui.PhonePreview
 import com.hcl.notflixpoc.R
+import com.hcl.notflixpoc.core.designsystem.model.ScreenState
 import com.hcl.notflixpoc.presentation.features.detail.model.DetailUi
 import com.hcl.notflixpoc.presentation.features.detail.model.mockDetailUi
+import com.hcl.notflixpoc.presentation.features.home.SimpleScreenError
 import com.hcl.notflixpoc.presentation.theme.Gray
 
 @Composable
@@ -41,8 +43,22 @@ fun DetailScreenContainer(
     LaunchedEffect(key1 = viewModel) {
         viewModel.getMovieDetails(movieId ?: -1)
     }
-    val movieDetails = viewModel.movieDetails.collectAsState().value
-    movieDetails?.let { DetailScreen(detailUi = it) }
+    val movieDetailsState = viewModel.detailScreenState.collectAsState().value
+    when (movieDetailsState) {
+        is ScreenState.Loading -> {
+
+        }
+        is ScreenState.Success -> {
+            DetailScreen(detailUi = movieDetailsState.data)
+        }
+        is ScreenState.Error -> {
+            SimpleScreenError(
+                errorMessage = stringResource(id = R.string.home_error_message),
+                buttonMessage = stringResource(id = R.string.home_error_message_button),
+                onClickRetry = { viewModel.getMovieDetails(movieId ?: -1) }
+            )
+        }
+    }
 }
 
 @Composable

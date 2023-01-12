@@ -9,12 +9,12 @@ class NetworkMovieToMovieDataModelMapper @Inject constructor() {
     operator fun invoke(movie: NetworkMovie): MovieDataModel = with(movie) {
         //TODO handled the exception  of the no-null assertion
         MovieDataModel(
-            backdropPath = backdropPath!!,
-            id = id!!,
-            posterPath = posterPath!!,
-            releaseDate = releaseDate!!,
-            title = title!!,
-            voteAverage = voteAverage!!,
+            backdropPath = backdropPath ?: "",
+            id = id ?: 0,
+            posterPath = posterPath ?: "",
+            releaseDate = releaseDate ?: "",
+            title = title ?: "",
+            voteAverage = voteAverage ?: 0.0,
         )
     }
 

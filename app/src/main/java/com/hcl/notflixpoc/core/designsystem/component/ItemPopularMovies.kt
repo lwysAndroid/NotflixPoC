@@ -29,6 +29,7 @@ import com.google.accompanist.placeholder.material.fade
 import com.gowtham.ratingbar.RatingBar
 import com.gowtham.ratingbar.RatingBarStyle
 import com.gowtham.ratingbar.StepSize
+import com.hcl.notflixpoc.BuildConfig
 import com.hcl.notflixpoc.R
 import com.hcl.notflixpoc.core.designsystem.model.PopularMovieUI
 import com.hcl.notflixpoc.core.designsystem.model.fakePopularMovieUI
@@ -54,7 +55,9 @@ fun ItemPopularMovies(
         data = popularMovieUI.backdropPath,
         builder = {
             crossfade(true)
-            placeholder(placeholder)
+            if(BuildConfig.DEBUG){
+                placeholder(placeholder)
+            }
         }
     )
 
@@ -127,7 +130,7 @@ fun ItemPopularMovies(
             ) {
                 //region Movie Title
                 Text(
-                    text = popularMovieUI.title ?: "Unknown movie",
+                    text = popularMovieUI.title,
                     fontSize = 18.sp,
                     maxLines = 2,
                     style = MaterialTheme.typography.h6,
